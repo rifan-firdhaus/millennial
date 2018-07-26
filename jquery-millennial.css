@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+:root {
+    --color: #4fa18a;
+}
+
+.mil-calendar-wrapper {
+    width: auto;
+    display: inline-block;
+    font-family: 'Open Sans', serif;
+    background: #FFF;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    overflow: hidden;
+    font-size: 1rem;
+    color: #555;
+}
+
+.mil-calendar-body {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.mil-calendar-week {
+    display: flex;
+}
+
+.mil-calendar-day-wrapper {
+    padding: 4px 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.mil-calendar-day {
+    width: 38px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 50%;
+    font-weight: bold;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    box-shadow: 0 0 0 0 #e2f0ec inset;
+}
+
+.mil-calendar-day-wrapper:not(.mil-calendar-day-selected-day):not(.mil-calendar-day-disabled):hover .mil-calendar-day {
+    background-color: #e2f0ec;
+    box-shadow: 0 0 0 50px #e2f0ec inset;
+}
+
+.mil-calendar-day-selected-day .mil-calendar-day {
+    background: var(--color);
+    color: #FFF;
+    border-radius: 0;
+}
+
+.mil-calendar-year-selector,
+.mil-calendar-month-selector {
+    display: inline-block;
+    font-size: 1.3rem;
+}
+
+.mil-calendar-month-year-selector {
+    padding: 13px 15px;
+    color: currentColor;
+    min-width: 172px;
+}
+
+.mil-calendar-month-selector {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 5px;
+}
+
+.mil-calendar-prev:after,
+.mil-calendar-next:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    display: block;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 0;
+    margin-top: 13px;
+    transform-origin: right;
+}
+
+.mil-calendar-selected:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background: currentColor;
+    border-radius: 50%;
+}
+
+.mil-calendar-selected,
+.mil-calendar-prev,
+.mil-calendar-next {
+    position: relative;
+    min-width: 17px;
+    min-height: 17px;
+    padding: 10px;
+    text-align: center;
+    color: currentColor;
+    height: 100%;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.mil-calendar-selected:hover,
+.mil-calendar-prev:hover,
+.mil-calendar-next:hover {
+    opacity: 1
+}
+
+.mil-calendar-header {
+    display: flex;
+    width: 100%;
+    background: #ffffff;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.mil-calendar-toolbar {
+    text-align: right;
+    padding-right: 5px;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.mil-calendar-prev {
+    transform: rotate(180deg);
+}
+
+.mil-calendar-day-wrapper:not(.mil-calendar-day-current-month) {
+    opacity: 0.6;
+}
+
+.mil-calendar-day-selected-day-first .mil-calendar-day {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.mil-calendar-day-selected-day-last .mil-calendar-day {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.mil-calendar-day-disabled .mil-calendar-day {
+    background: #e2e2e2;
+    opacity: 0.25;
+    border-radius: 50%;
+    cursor: default;
+}
