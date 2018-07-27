@@ -5,7 +5,7 @@
     <title>Stick demo</title>
     <link rel="stylesheet" href="style.css"/>
     <link rel="stylesheet" href="../jquery-millennial.css"/>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="jquery.js"></script>
     <script src="luxon.js"></script>
     <script src="../jquery-millennial.js"></script>
 </head>
@@ -13,13 +13,7 @@
 <div id="calendar"></div>
 <script>
     $(function () {
-        window.calendar = new Calendar({
-            dayCallback: function (datetime, $day) {
-                if (Math.random() < 0.8) {
-                    $day.addClass('red');
-                }
-            }
-        });
+        window.calendar = new Calendar();
         calendar.$wrapper.appendTo($('body'))
     })
 </script>

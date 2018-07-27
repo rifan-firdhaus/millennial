@@ -2,12 +2,14 @@
 
 :root {
     --color: #4fa18a;
+    --fade: #e2f0ec;
+    --darker: #74b5a3;
 }
 
-.mil-calendar-wrapper {
+.mil-cal-wrapper {
     width: auto;
     display: inline-block;
-    font-family: 'Open Sans', serif;
+    font-family: 'Open Sans', Arial;
     background: #FFF;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -16,96 +18,150 @@
     color: #555;
 }
 
-.mil-calendar-body {
+.mil-cal-body {
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    position: relative;
+    overflow: hidden;
+    height:auto;
+    max-height: 400px;
+    transition: 0.4s;
 }
 
-.mil-calendar-week {
+.mil-cal-day-names,
+.mil-cal-week {
     display: flex;
 }
 
-.mil-calendar-day-wrapper {
+.mil-cal-day-name,
+.mil-cal-day-wrapper {
     padding: 4px 0;
     cursor: pointer;
     width: 100%;
+    min-width: 2.8rem;
 }
 
-.mil-calendar-day {
-    width: 38px;
-    line-height: 38px;
+.mil-cal-day {
+    display: flex;
     text-align: center;
     border-radius: 50%;
     font-weight: bold;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-    -ms-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s;
-    box-shadow: 0 0 0 0 #e2f0ec inset;
+    user-select: none;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s,transform 0.3s linear 0.2s;
+    position: relative;
+    box-shadow: 0 0 0 0 var(--fade) inset;
+    transform: scale(1);
 }
 
-.mil-calendar-day-wrapper:not(.mil-calendar-day-selected-day):not(.mil-calendar-day-disabled):hover .mil-calendar-day {
-    background-color: #e2f0ec;
-    box-shadow: 0 0 0 50px #e2f0ec inset;
-}
-
-.mil-calendar-day-selected-day .mil-calendar-day {
-    background: var(--color);
-    color: #FFF;
+.mil-cal-day-over .mil-cal-day {
+    background: var(--fade);
     border-radius: 0;
 }
 
-.mil-calendar-year-selector,
-.mil-calendar-month-selector {
-    display: inline-block;
-    font-size: 1.3rem;
+.mil-cal-day-wrapper:not(.mil-cal-day-selected):not(.mil-cal-day-disabled):hover .mil-cal-day {
+    box-shadow: 0 0 0 50px transparent inset;
 }
 
-.mil-calendar-month-year-selector {
-    padding: 13px 15px;
-    color: currentColor;
-    min-width: 172px;
-}
-
-.mil-calendar-month-selector {
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-right: 5px;
-}
-
-.mil-calendar-prev:after,
-.mil-calendar-next:after {
+.mil-cal-day-wrapper:not(.mil-cal-day-disabled) .mil-cal-day:before {
     content: "";
-    width: 10px;
-    height: 10px;
+    display: block;
+    position: absolute;
+    transition: 0.3s;
+    transform: scale(0);
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background: var(--fade);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+}
+.mil-cal-day-wrapper.mil-cal-day-selected .mil-cal-day:before {
+    background: var(--darker);
+    border-radius: 0px;
+}
+.mil-cal-day-wrapper.mil-cal-day-selected-last .mil-cal-day:before,
+.mil-cal-day-wrapper.mil-cal-day-selected-first .mil-cal-day:before {
+    border-radius: 50%
+}
+.mil-cal-month-select-in-range .mil-cal-day-wrapper:not(.mil-cal-day-disabled) .mil-cal-day:before {
+    transition: 0s;
+}
+
+.mil-cal-day-wrapper:not(.mil-cal-day-disabled):hover .mil-cal-day:before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.mil-cal-day-selected .mil-cal-day {
+    background: var(--color);
+    color: #FFF;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.mil-cal-year-display,
+.mil-cal-month-display {
+    display: inline-block;
+}
+
+.mil-cal-month-selector-label,
+.mil-cal-year-selector-label,
+.mil-cal-month-year-display {
+    padding: 1rem 0px 1rem 1rem;
+    color: currentColor;
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 1.3rem;
+    opacity: 0.4;
+}
+
+.mil-cal-month-display {
+    font-weight: bold;
+    margin-right: 0.6rem;
+}
+
+.mil-cal-prev:after,
+.mil-cal-next:after {
+    content: "";
+    width: 0.8rem;
+    height: 0.8rem;
     border-bottom: 2px solid currentColor;
     border-right: 2px solid currentColor;
     display: block;
     transform: rotate(45deg);
     position: absolute;
     top: 0;
-    margin-top: 13px;
+    margin-top: 0.85rem;
     transform-origin: right;
+    transition: 0.3s;
 }
 
-.mil-calendar-selected:after {
+.mil-cal-selected:after {
     content: "";
-    width: 10px;
-    height: 10px;
+    width: 0.8rem;
+    height: 0.8rem;
     display: inline-block;
-    background: currentColor;
+    border: 2px solid currentColor;
     border-radius: 50%;
+    transition: 0.3s;
 }
 
-.mil-calendar-selected,
-.mil-calendar-prev,
-.mil-calendar-next {
+.mil-cal-selected,
+.mil-cal-prev,
+.mil-cal-next {
     position: relative;
-    min-width: 17px;
-    min-height: 17px;
-    padding: 10px;
+    min-width: 1rem;
+    cursor: pointer;
+    min-height: 1rem;
+    line-height: 1rem;
+    padding: 0.8rem;
     text-align: center;
     color: currentColor;
     height: 100%;
@@ -113,50 +169,240 @@
     transition: 0.3s;
 }
 
-.mil-calendar-selected:hover,
-.mil-calendar-prev:hover,
-.mil-calendar-next:hover {
+.mil-cal-selected:hover,
+.mil-cal-prev:hover,
+.mil-cal-next:hover {
     opacity: 1
 }
 
-.mil-calendar-header {
+.mil-cal-header {
     display: flex;
     width: 100%;
     background: #ffffff;
     align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
 }
 
-.mil-calendar-toolbar {
+.mil-cal-toolbar {
     text-align: right;
     padding-right: 5px;
     display: flex;
     justify-content: space-between;
     height: 100%;
+    justify-self: right;
 }
 
-.mil-calendar-prev {
-    transform: rotate(180deg);
+.mil-cal-prev:after {
+    transform: rotate(225deg);
+    transform-origin: center;
+    margin-top: 1rem;
 }
 
-.mil-calendar-day-wrapper:not(.mil-calendar-day-current-month) {
+.mil-cal-day-wrapper:not(.mil-cal-day-current-month) {
     opacity: 0.6;
 }
 
-.mil-calendar-day-selected-day-first .mil-calendar-day {
+.mil-cal-day-selected-first:not(.mil-cal-day-over) .mil-cal-day {
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
 }
 
-.mil-calendar-day-selected-day-last .mil-calendar-day {
+.mil-cal-day-selected-last:not(.mil-cal-day-over) .mil-cal-day {
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
 }
 
-.mil-calendar-day-disabled .mil-calendar-day {
+.mil-cal-day-disabled .mil-cal-day {
     background: #e2e2e2;
     opacity: 0.25;
     border-radius: 50%;
     cursor: default;
+}
+
+.mil-cal-day-name {
+    text-align: center;
+    font-weight: bold;
+    color: #AAA;
+    font-size: 0.8rem;
+}
+
+.mil-cal-day-today .mil-cal-day {
+    box-shadow: 0 0 0 3px rgba(79, 161, 138, 0.4) inset;
+}
+
+.mil-cal-day:after {
+    content: '';
+    padding-top: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.mil-cal-day-names {
+    padding: 5px 5px;
+    background: #f7f7f7;
+}
+
+.mil-cal-months {
+    display: flex;
+}
+
+.mil-cal-month + .mil-cal-month {
+    border-left: 10px solid #f7f7f7;
+}
+
+.mill-call-month-name {
+    text-align: center;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    background: #f7f7f7;
+    font-weight: bold;
+    color: #AAA;
+}
+
+.mil-cal-month {
+    width: 100%;
+    transition: transform 0.1s linear 0.1s;
+    transform: scale(1);
+}
+
+.mil-cal-month-year-display + .mil-cal-month-year-display:before {
+    content: "-";
+    position: absolute;
+    top: 50%;
+    left: -0.4rem;
+    line-height: 0;
+    font-size: 3rem;
+    color: #AAA;
+    margin-top: -0.3rem;
+}
+
+.mil-cal-month-year-display + .mil-cal-month-year-display {
+    margin-left: 1rem;
+}
+
+.mil-cal-day-over-first.mil-cal-day-selected-first .mil-cal-day,
+.mil-cal-day-over-first:not(.mil-cal-day-selected) .mil-cal-day {
+    border-radius: 50% 0px 0px 50%;
+}
+
+.mil-cal-day-over-last.mil-cal-day-selected-last .mil-cal-day,
+.mil-cal-day-over-last:not(.mil-cal-day-selected) .mil-cal-day {
+    border-radius: 0px 50% 50% 0px;
+}
+
+.mil-cal-month-selector,
+.mil-cal-year-selector {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-items: stretch;
+    text-align: center;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: #FFF;
+    transition: 0.3s;
+    overflow: hidden;
+    height: 100%;
+    border-top: 1px solid #EEE;
+}
+
+.mil-cal-month-selector {
+    transform: translateX(-100%);
+}
+
+.mil-cal-year-selector {
+    transform: translateX(-200%);
+}
+
+.mil-cal-month-selector-showed .mil-cal-year-selector {
+    transform: translateX(-100%);
+}
+
+.mil-cal-month-selector-showed .mil-cal-month-selector,
+.mil-cal-year-selector-showed .mil-cal-year-selector {
+    transform: translateX(0);
+    z-index: 999;
+    overflow: visible;
+}
+
+.mil-cal-month-selector-showed .mil-cal-months {
+    transform: translateX(100%);
+}
+
+.mil-cal-year-selector-showed .mil-cal-month-selector {
+    transform: translateX(100%);
+}
+
+.mil-cal-month-selector-item,
+.mil-cal-year-selector-item {
+    width: 25%;
+    padding: 12px;
+    box-sizing: border-box;
+    font-weight: bold;
+    display: flex;
+    border-radius: 5px;
+    cursor: pointer;
+    align-items: center;
+    transition: all 0.3s, transform 0.2s linear 0.2s, opacity 0.2s linear 0.2s;
+    border: 2px solid transparent;
+    justify-content: center;
+    transform: scale(0.7);
+    opacity: 0.6;
+}
+
+.mil-cal-month-selector-item:hover,
+.mil-cal-year-selector-item:hover {
+    background: var(--fade);
+}
+
+.mil-cal-year-selector-item.mil-cal-year-selector-item-selected {
+    box-shadow: 0 0 0 2px var(--fade) inset;
+}
+
+.mil-cal-month-year-display-wrapper {
+    transition: 0.3s;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.mil-cal-year-selector-showed .mil-cal-month-selector-label,
+.mil-cal-month-selector-showed .mil-cal-year-selector-label,
+.mil-cal-month-selector-showed .mil-cal-month-year-display-wrapper,
+.mil-cal-year-selector-showed .mil-cal-month-year-display-wrapper {
+    transform: translateY(-100%);
+}
+
+.mil-cal-year-selector-label, .mil-cal-month-selector-label {
+    position: absolute;
+    transition: 0.3s;
+    transform: translateY(-100%);
+}
+
+.mil-cal-year-selector-showed .mil-cal-year-selector-label,
+.mil-cal-month-selector-showed .mil-cal-month-selector-label {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mil-cal-year-selector-showed .mil-cal-year-selector-item {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.mil-cal-month-selector-showed .mil-cal-month-selector-item {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 var(--fade) inset;
+}
+
+.mil-cal-selected:hover:after {
+    box-shadow: 0 0 0 10px currentColor inset;
+}
+
+.mil-cal-month-year-display {
+    opacity: 1;
 }
